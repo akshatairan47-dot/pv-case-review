@@ -3,6 +3,7 @@ package com.pvreview.service;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,10 @@ public class CaseService {
                 .orElseThrow(() -> new CaseNotFoundException("No case found with id " + caseId));
     }
 
+    public List<Case> getAllCases() {
+        return caseStore.findAll();
+    }
+
     public Case applyFollowUp(String caseId, CasePayload payload) {
         Case current = caseStore.find(caseId)
                 .orElseThrow(() -> new CaseNotFoundException("No case found with id " + caseId));
@@ -36,6 +41,16 @@ public class CaseService {
 
     public Case bootstrap(CasePayload payload) {
         return caseStore.save(toBaselineCase(payload));
+    }
+
+    // Ops restore only (backup.sh/restore.sh) — writes the snapshot back verbatim, bypassing merge entirely.
+    public Case restoreCase(String caseId, Case snapshot) {
+        if (snapshot.getCaseId() != null && !Objects.equals(snapshot.getCaseId(), caseId)) {
+            throw new IllegalArgumentException(
+                    "Path case id " + caseId + " does not match body case id " + snapshot.getCaseId());
+        }
+        snapshot.setCaseId(caseId);
+        return caseStore.save(snapshot);
     }
 
     private Case toBaselineCase(CasePayload payload) {

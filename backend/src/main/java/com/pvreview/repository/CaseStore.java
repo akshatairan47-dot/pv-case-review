@@ -1,5 +1,7 @@
 package com.pvreview.repository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
@@ -15,6 +17,10 @@ public class CaseStore {
 
     public Optional<Case> find(String caseId) {
         return Optional.ofNullable(cases.get(caseId));
+    }
+
+    public List<Case> findAll() {
+        return new ArrayList<>(cases.values());
     }
 
     public Case save(Case caseToSave) {
