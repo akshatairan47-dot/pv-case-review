@@ -198,3 +198,83 @@ All errors share one shape:
 | Malformed JSON body | `400` |
 | Missing/blank required field (e.g. in `/queries`) | `400` |
 | Missing required query param (e.g. `caseId` on `GET /queries`) | `400` |
+
+## Operations
+
+Running via Docker, plus backup/restore tooling under `ops/`. None of this
+needs the JVM or Gradle on the host — only Docker.
+
+### Running via Docker
+
+```bash
+docker compose up -d --build
+```
+
+Builds the image (multi-stage: JDK to compile, JRE to run, non-root user)
+and starts the backend on `http://localhost:8080` — same app as
+`./gradlew bootRun`, just containerized. `docker-compose.yml` sets
+`restart: "no"` on purpose: `CaseStore` is in-memory, so an auto-restarting
+container would come back up with an empty store, silently losing whatever
+was there before the crash.
+
+### `ops/run.sh` and the Makefile
+
+`ops/run.sh` wraps Docker Compose and Gradle with the usual lifecycle
+subcommands; the `Makefile` just calls it so you can use whichever you
+prefer:
+
+```bash
+./ops/run.sh build   /  make build    # docker compose build
+./ops/run.sh start   /  make start    # docker compose up -d
+./ops/run.sh stop    /  make stop     # docker compose down
+./ops/run.sh test    /  make test     # ./gradlew test (doesn't need Docker)
+./ops/run.sh logs    /  make logs     # follow container logs
+./ops/run.sh clean   /  make clean    # stop containers, remove the image, ./gradlew clean
+./ops/run.sh --help  /  make help
+```
+
+Every subcommand except `test` and `--help` checks `docker info` first and
+fails with a one-line error if Docker isn't running, instead of letting a
+raw Docker error leak through.
+
+### Backups and restores
+
+`backup.sh` fetches every case from a running backend and writes them to a
+single timestamped, gitignored file:
+
+```bash
+make backup
+# [2026-06-21T11:51:11Z] Starting backup from http://localhost:8080/cases
+# [2026-06-21T11:51:11Z] Backup complete: 1 case(s) written to backups/cases-20260621T115111Z-LfgkHWYu.json
+```
+
+`restore.sh` takes a backup file and puts each case back exactly as it was,
+via `PUT /cases/{caseId}` — not the follow-up endpoint, so merge logic never
+runs. Use `--dry-run` to see what it would do first:
+
+```bash
+make restore FILE=backups/cases-20260621T115111Z-LfgkHWYu.json DRY_RUN=1
+make restore FILE=backups/cases-20260621T115111Z-LfgkHWYu.json
+```
+
+Restoring is idempotent: `PUT` always sets the case to exactly the state in
+the file, so restoring the same file twice leaves the case unchanged rather
+than compounding anything.
+
+### Why `PUT /cases/{caseId}` exists separately from `POST /follow-ups`
+
+These two write paths look similar but do very different things:
+
+| Endpoint | Purpose | Runs merge logic? |
+|---|---|---|
+| `POST /cases/{caseId}/follow-ups` | Normal application flow — apply a new follow-up report to a case | Yes — computes `NEW`/`OVERRIDDEN`/`UNCHANGED`/`RETAINED` per field |
+| `PUT /cases/{caseId}` | **Ops only**, used by `restore.sh` to put a case back exactly as a backup recorded it | No — raw overwrite, verbatim |
+
+If `restore.sh` used the follow-up endpoint instead, the restored snapshot
+would get merged against whatever the live case currently looks like, which
+could change field statuses and values instead of recreating the backed-up
+state exactly. `PUT` exists so a restore is a true rollback, not another
+merge — it isn't meant to be used as a general "update a case" endpoint.
+
+`GET /cases` (list all cases) exists for the same reason: `backup.sh` needs
+to discover every case id without already knowing them upfront.
