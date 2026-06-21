@@ -6,6 +6,7 @@ spring:
     name: pv-case-review-backend
   jackson:
     property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: non_null
 
 app:
   bootstrap:
