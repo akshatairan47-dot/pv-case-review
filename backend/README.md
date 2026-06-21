@@ -204,6 +204,11 @@ All errors share one shape:
 Running via Docker, plus backup/restore tooling under `ops/`. None of this
 needs the JVM or Gradle on the host — only Docker.
 
+`Makefile`, `Dockerfile`, `docker-compose.yml`, and `ops/` all live at the
+**repository root** (one level up from this `backend/` directory, which
+holds only the Spring Boot application itself) — run every command below
+from there.
+
 ### Running via Docker
 
 ```bash

@@ -2,7 +2,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKEND_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+BACKEND_DIR="$ROOT_DIR/backend"
 
 usage() {
   cat <<'EOF'
@@ -28,17 +29,17 @@ require_docker() {
 
 cmd_build() {
   require_docker
-  (cd "$BACKEND_DIR" && docker compose build)
+  (cd "$ROOT_DIR" && docker compose build)
 }
 
 cmd_start() {
   require_docker
-  (cd "$BACKEND_DIR" && docker compose up -d)
+  (cd "$ROOT_DIR" && docker compose up -d)
 }
 
 cmd_stop() {
   require_docker
-  (cd "$BACKEND_DIR" && docker compose down)
+  (cd "$ROOT_DIR" && docker compose down)
 }
 
 cmd_test() {
@@ -47,12 +48,12 @@ cmd_test() {
 
 cmd_logs() {
   require_docker
-  (cd "$BACKEND_DIR" && docker compose logs -f backend)
+  (cd "$ROOT_DIR" && docker compose logs -f backend)
 }
 
 cmd_clean() {
   require_docker
-  (cd "$BACKEND_DIR" && docker compose down --rmi local --volumes --remove-orphans)
+  (cd "$ROOT_DIR" && docker compose down --rmi local --volumes --remove-orphans)
   (cd "$BACKEND_DIR" && ./gradlew clean)
 }
 

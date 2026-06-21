@@ -1,0 +1,8 @@
+.git/
+backend/build/
+backend/.gradle/
+backend/out/
+backend/*.log
+**/.idea/
+**/*.iml
+backups/

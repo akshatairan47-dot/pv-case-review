@@ -2,8 +2,8 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKEND_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-BACKUP_DIR="$BACKEND_DIR/backups"
+ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+BACKUP_DIR="$ROOT_DIR/backups"
 
 BASE_URL="${PV_BACKEND_URL:-http://localhost:8080}"
 
