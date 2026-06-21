@@ -22,6 +22,9 @@ The app starts on `http://localhost:8080`. On startup it bootstraps one case,
 **`PV-2026-0451`**, from `src/main/resources/data/case_v1.json`, so there's
 something to query immediately — no seeding step required.
 
+Interactive API docs (Swagger UI) are at `http://localhost:8080/swagger-ui/index.html`,
+backed by the raw OpenAPI spec at `http://localhost:8080/v3/api-docs`.
+
 ## Running the tests
 
 ```bash
