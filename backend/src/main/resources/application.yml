@@ -4,8 +4,9 @@ server:
 spring:
   application:
     name: pv-case-review-backend
+  jackson:
+    property-naming-strategy: SNAKE_CASE
 
 app:
   bootstrap:
-    case-id: PV-2026-0451
     case-data-path: classpath:data/case_v1.json
