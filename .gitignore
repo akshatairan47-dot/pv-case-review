@@ -1,0 +1,24 @@
+# Java / Gradle
+build/
+.gradle/
+*.class
+out/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+
+# Env
+.env
+
+# Node (frontend, Phase 2)
+node_modules/
+.next/
+dist/
+
+# Ops
+backups/
