@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import type { CaseField } from '../types/case'
 import { RaiseQueryModal } from './RaiseQueryModal'
+import { StatusBadge } from './StatusBadge'
 import './FieldCard.css'
 
 interface FieldCardProps {
@@ -27,7 +28,10 @@ export function FieldCard({ label, field, caseId, fieldPath }: FieldCardProps) {
     <div className={`field-card field-card--${level}`}>
       <div className="field-card__header">
         <span className="field-card__label">{label}</span>
-        <span className="field-card__confidence">{Math.round(field.confidence * 100)}%</span>
+        <div className="field-card__badges">
+          <StatusBadge status={field.status} />
+          <span className="field-card__confidence">{Math.round(field.confidence * 100)}%</span>
+        </div>
       </div>
       {isOverridden ? (
         <div className="field-card__values">

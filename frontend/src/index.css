@@ -11,6 +11,8 @@
   --confidence-low: #dc3545;
   --confidence-medium: #f0a202;
   --confidence-high: #1fa86a;
+  --status-overridden: #e08e0b;
+  --status-unchanged: #8a8f98;
 
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;

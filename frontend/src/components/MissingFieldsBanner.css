@@ -1,0 +1,33 @@
+.missing-fields-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 20px 32px 0;
+  padding: 14px 18px;
+  border-radius: 8px;
+  background: #fff7e6;
+  border: 1px solid var(--status-overridden);
+  text-align: left;
+
+  @media (max-width: 1024px) {
+    margin: 16px 20px 0;
+  }
+}
+
+.missing-fields-banner__icon {
+  font-size: 18px;
+  line-height: 1;
+  color: var(--status-overridden);
+}
+
+.missing-fields-banner__title {
+  margin: 0 0 4px;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.missing-fields-banner__list {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text);
+}

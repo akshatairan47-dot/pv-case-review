@@ -1,0 +1,37 @@
+{
+  "case_id": "PV-2026-0451",
+  "version": 2,
+  "case_classification": "non-significant",
+  "extracted_at": "2026-05-19T11:42:00Z",
+  "source_document": "followup_report_PV-2026-0451-FU1.pdf",
+  "sections": {
+    "patient": {
+      "initials": { "value": "M.K.", "confidence": 0.98, "source": "p.2 §1", "status": "UNCHANGED" },
+      "age": { "value": "62", "confidence": 0.91, "source": "p.2 §1", "status": "UNCHANGED" },
+      "sex": { "value": "Male", "confidence": 0.99, "source": "p.2 §1", "status": "UNCHANGED" },
+      "weight_kg": { "value": "76", "confidence": 0.82, "source": "p.3 §2", "status": "OVERRIDDEN", "previous_value": "78" }
+    },
+    "suspect_drug": {
+      "drug_name": { "value": "Atorvastatin", "confidence": 0.97, "source": "p.3 §3", "status": "UNCHANGED" },
+      "dose": { "value": "40 mg", "confidence": 0.89, "source": "p.3 §3", "status": "OVERRIDDEN", "previous_value": "20 mg" },
+      "route": { "value": "Oral", "confidence": 0.96, "source": "p.3 §3", "status": "UNCHANGED" },
+      "indication": { "value": "Hypercholesterolemia", "confidence": 0.88, "source": "p.3 §4", "status": "UNCHANGED" }
+    },
+    "adverse_event": {
+      "event_term": { "value": "Rhabdomyolysis", "confidence": 0.86, "source": "p.4 §1", "status": "OVERRIDDEN", "previous_value": "Myalgia" },
+      "onset_date": { "value": "2026-03-12", "confidence": 0.72, "source": "p.4 §2", "status": "UNCHANGED" },
+      "outcome": { "value": "Recovering", "confidence": 0.74, "source": "p.5 §1", "status": "OVERRIDDEN", "previous_value": "Recovered" },
+      "seriousness": { "value": "Serious", "confidence": 0.91, "source": "p.5 §1", "status": "OVERRIDDEN", "previous_value": "Non-serious" },
+      "hospitalization": { "value": "Yes - 5 days", "confidence": 0.93, "source": "p.5 §2", "status": "NEW" }
+    },
+    "reporter": {
+      "qualification": { "value": "Physician", "confidence": 0.95, "source": "p.1 §1", "status": "UNCHANGED" },
+      "country": { "value": "India", "confidence": 0.99, "source": "p.1 §1", "status": "UNCHANGED" }
+    }
+  },
+  "missing_fields": [
+    "concomitant_medications",
+    "medical_history",
+    "creatine_kinase_level"
+  ]
+}

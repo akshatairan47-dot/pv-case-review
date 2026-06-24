@@ -25,6 +25,12 @@
   gap: 8px;
 }
 
+.field-card__badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .field-card__label {
   font-size: 13px;
   font-weight: 600;

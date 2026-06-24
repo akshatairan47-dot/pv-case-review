@@ -1,0 +1,18 @@
+.offline-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 32px 0;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #fdecea;
+  color: #8a3b12;
+  border: 1px solid #f3c9a3;
+  text-align: left;
+
+  @media (max-width: 1024px) {
+    margin: 16px 20px 0;
+  }
+}
