@@ -7,6 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/cases': 'http://localhost:8080',
+      '/queries': 'http://localhost:8080',
     },
   },
 })

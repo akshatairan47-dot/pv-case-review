@@ -22,7 +22,12 @@ function App() {
         {pvCase && (
           <div className="case-review__sections">
             {Object.entries(pvCase.sections).map(([sectionName, fields]) => (
-              <SectionGroup key={sectionName} name={sectionName} fields={fields} />
+              <SectionGroup
+                key={sectionName}
+                name={sectionName}
+                fields={fields}
+                caseId={pvCase.case_id}
+              />
             ))}
           </div>
         )}

@@ -95,3 +95,24 @@
   font-size: 12px;
   color: var(--text);
 }
+
+.field-card__raise-query {
+  align-self: flex-start;
+  margin-top: 4px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--brand-blue);
+  background: none;
+  color: var(--brand-blue);
+  cursor: pointer;
+}
+
+.field-card__raise-query:hover {
+  background: var(--brand-blue);
+  color: #fff;
+}

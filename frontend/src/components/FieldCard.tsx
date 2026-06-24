@@ -1,9 +1,13 @@
+import { useState } from 'react'
 import type { CaseField } from '../types/case'
+import { RaiseQueryModal } from './RaiseQueryModal'
 import './FieldCard.css'
 
 interface FieldCardProps {
   label: string
   field: CaseField
+  caseId: string
+  fieldPath: string
 }
 
 type ConfidenceLevel = 'low' | 'medium' | 'high'
@@ -14,9 +18,10 @@ function getConfidenceLevel(confidence: number): ConfidenceLevel {
   return 'high'
 }
 
-export function FieldCard({ label, field }: FieldCardProps) {
+export function FieldCard({ label, field, caseId, fieldPath }: FieldCardProps) {
   const level = getConfidenceLevel(field.confidence)
   const isOverridden = field.status === 'OVERRIDDEN'
+  const [isQueryModalOpen, setIsQueryModalOpen] = useState(false)
 
   return (
     <div className={`field-card field-card--${level}`}>
@@ -36,6 +41,22 @@ export function FieldCard({ label, field }: FieldCardProps) {
         <p className="field-card__value">{field.value}</p>
       )}
       <p className="field-card__source">{field.source}</p>
+      {isOverridden && (
+        <button
+          type="button"
+          className="field-card__raise-query"
+          onClick={() => setIsQueryModalOpen(true)}
+        >
+          Raise Query
+        </button>
+      )}
+      {isQueryModalOpen && (
+        <RaiseQueryModal
+          caseId={caseId}
+          fieldPath={fieldPath}
+          onClose={() => setIsQueryModalOpen(false)}
+        />
+      )}
     </div>
   )
 }
