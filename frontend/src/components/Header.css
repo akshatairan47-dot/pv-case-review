@@ -1,0 +1,65 @@
+.case-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 20px 32px;
+  background: var(--navy);
+  color: #fff;
+
+  @media (max-width: 1024px) {
+    padding: 16px 20px;
+  }
+}
+
+.case-header__case-id {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.case-header__label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent-teal);
+}
+
+.case-header__value {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.case-header__classification {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  label {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--accent-teal);
+  }
+
+  select {
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--brand-blue);
+    background: #fff;
+    color: var(--navy);
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid var(--accent-teal);
+      outline-offset: 2px;
+    }
+  }
+}

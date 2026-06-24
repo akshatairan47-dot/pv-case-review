@@ -1,0 +1,17 @@
+.section-group {
+  width: 100%;
+  text-align: left;
+}
+
+.section-group__title {
+  color: var(--navy);
+  border-bottom: 2px solid var(--accent-teal);
+  padding-bottom: 6px;
+  margin: 0 0 14px;
+}
+
+.section-group__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
